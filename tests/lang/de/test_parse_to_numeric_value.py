@@ -64,7 +64,7 @@ from parse_numeric_value.lang.de.parse_to_numeric_value import parse_number
     ('vierundneunzig', (94, False), True), ('fünfundneunzig', (95, False), True),
     ('sechsundneunzig', (96, False), True), ('siebenundneunzig', (97, False), True),
     ('achtundneunzig', (98, False), True), ('neunundneunzig', (99, False), True),
-    ('hundert', (100, False), True), ('hundertein', (101, False), True), ('hundertein', (101, False), True),
+    ('hundert', (100, False), True), ('hundertein', (101, False), True), ('hunderteins', (101, False), True),
     ('hundertzwei', (102, False), True), ('hundertdrei', (103, False), True),
     ('hundertvier', (104, False), True), ('hundertfünf', (105, False), True),
     ('hundertsechs', (106, False), True), ('hundertsieben', (107, False), True),
