@@ -4,5 +4,5 @@
 
 ## Features
 
-  - Identify the language of text
-  - Extract the numeric value of number words
+  - Parses number words, written as a single word or a word with - in it and calculates their value
+  - Currently supports German, Dutch and French
