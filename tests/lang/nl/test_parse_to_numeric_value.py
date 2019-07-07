@@ -6,12 +6,7 @@ from __future__ import unicode_literals
 
 import pytest
 
-from parse_numeric_value.lang.nl.parse_numeric_value.parse_numeric_value import parse_number
-
-# @pytest.fixture(scope='module')
-# def nl_tokenizer():
-#     return util.get_lang_class('nl').Defaults.create_tokenizer()
-
+from parse_numeric_value.lang.nl.parse_to_numeric_value import parse_number
 
 @pytest.mark.parametrize('text,value,match', [
     ('dog', (None, None), False), (',', (None, None), False),

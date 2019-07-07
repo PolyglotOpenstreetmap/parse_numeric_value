@@ -1,6 +1,5 @@
 # coding: utf8
 from __future__ import unicode_literals
-
 import re
 
 wrong_ordinals_re = re.compile(r"""(?x)
@@ -84,11 +83,11 @@ for number, text in numeric_lookup.items():
     text_lookup[text] = number
 
 
-def parse_number(number, determine_value=False, strict_AN_spelling=False):
+def parse_number(number_text, determine_value=False, strict_AN_spelling=False):
     """Accepts Dutch text representing a number which can be written as a single word
        in the range of 0-999 and their multiples of 1 thousand.
        After 'duizend' a space is required
-       :param number:             text string that may be a number
+       :param number_text:             text string that may be a number
        :param determine_value:    calculate the value it represents as well
        :param strict_AN_spelling: only allow valid AN spelling
        :return: in case determine_value=True:
@@ -102,18 +101,18 @@ def parse_number(number, determine_value=False, strict_AN_spelling=False):
                   * True:  This string represents a numeral
                   * False: Can't be a correctly spelled numeral in Standard Dutch"""
     result = None
-    if number == '':
+    if number_text == '':
         result = None, None
-    elif number == 'één':
+    elif number_text == 'één':
         result = 1, False
-    elif number == 'driekwart':  # '3/4 is the only fraction that can be written in one word in Dutch
+    elif number_text == 'driekwart':  # '3/4 is the only fraction that can be written in one word in Dutch
         result = 0.75, False
-    elif number == 'driekwartste':  # Farfetched indeed, except maybe in Harry Potter book
+    elif number_text == 'driekwartste':  # Farfetched indeed, except maybe in Harry Potter book
         result = 0.75, True
 
     # First a simple check using dictionary lookup
     ordinal = False
-    base = number
+    base = number_text
     if base.endswith('ste'):
         base = base[:-3]
         ordinal = True
@@ -127,7 +126,7 @@ def parse_number(number, determine_value=False, strict_AN_spelling=False):
     # using a lightweight regex in case strict adherence to
     # AN spelling is desired.
     if strict_AN_spelling:
-        test_ordinals = wrong_ordinals_re.match(number)
+        test_ordinals = wrong_ordinals_re.match(number_text)
         if test_ordinals and test_ordinals.group('wrong'):
             result = None, None
 
@@ -139,7 +138,7 @@ def parse_number(number, determine_value=False, strict_AN_spelling=False):
 
     # And then we can bring out the heavyweight regex
     value = 0
-    m = hundreds_units_and_tens_thousand_re.match(number)
+    m = hundreds_units_and_tens_thousand_re.match(number_text)
     if m:
         if m.group('ordinal'):
             ordinal = True
@@ -189,14 +188,3 @@ def parse_number(number, determine_value=False, strict_AN_spelling=False):
                 return False
             else:
                 return True
-
-
-def like_num(text):
-    text = text.replace(',', '').replace('.', '')
-    if text.isdigit():
-        return True
-    if text.count('/') == 1:
-        num, denom = text.split('/')
-        if num.isdigit() and denom.isdigit():
-            return True
-    return parse_number(text)
