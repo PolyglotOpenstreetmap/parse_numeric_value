@@ -23,12 +23,12 @@ with open(Path(__file__).resolve().parent.joinpath('VERSION'), 'r') as fh:
     version = fh.read()
 
 setuptools.setup(
-    name='textpipe',
+    name='parse_numeric_value',
     version=version,
-    description='textpipe: clean and extract metadata from text',
+    description='parse_numeric_value: convert text to its numeric value',
     long_description=long_description,
     long_description_content_type='text/markdown',
-    url='https://github.com/textpipe/textpipe',
+    url='https://github.com/PolyglotOpenstreetmap/parse_numeric_value',
     packages=setuptools.find_packages(),
     classifiers=[
         'Programming Language :: Python :: 3.6',

@@ -1,7 +1,7 @@
 # coding: utf8
 from __future__ import unicode_literals
 import re
-from pprint import pprint
+# from pprint import pprint
 
 
 wrong_ordinals_re = re.compile(r"""(?x)
@@ -157,8 +157,6 @@ def parse_number(number, determine_value=False):
                 value = 8
         else:
             ordinal = False
-            print('rest', m.group('rest'))
-            print('thousand', m.group('thousand'))
 
         if determine_value:
             if m.group('rest'):

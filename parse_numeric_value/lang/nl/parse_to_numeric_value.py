@@ -44,7 +44,7 @@ hundreds_units_and_tens_thousand_re = re.compile(r"""(?x)
       (?P<rest>.*)""")
 
 numeric_lookup = {0: 'nul',
-                  1: 'een',
+                  1: ['een', 'één'],
                   2: 'twee',
                   3: 'drie',
                   4: 'vier',
@@ -80,8 +80,11 @@ numeric_lookup = {0: 'nul',
 
 text_lookup = {}
 for number, text in numeric_lookup.items():
-    text_lookup[text] = number
-
+    if type(text) in (list, tuple):
+        for item in text:
+            text_lookup[item] = number
+    else:
+        text_lookup[text] = number
 
 def parse_number(number_text, determine_value=False, strict_AN_spelling=False):
     """Accepts Dutch text representing a number which can be written as a single word
@@ -103,8 +106,6 @@ def parse_number(number_text, determine_value=False, strict_AN_spelling=False):
     result = None
     if number_text == '':
         result = None, None
-    elif number_text == 'één':
-        result = 1, False
     elif number_text == 'driekwart':  # '3/4 is the only fraction that can be written in one word in Dutch
         result = 0.75, False
     elif number_text == 'driekwartste':  # Farfetched indeed, except maybe in Harry Potter book

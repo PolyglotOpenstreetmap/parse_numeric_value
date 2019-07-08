@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 import re
-from pprint import pprint
+#from pprint import pprint
 
 hundreds_tens_units_re = re.compile(r"""(?x)
       (
@@ -122,8 +122,8 @@ def parse_number(number, determine_value=False):
     value = 0
     ordinal = False
     m = hundreds_tens_units_re.match(number)
-    print(number)
-    pprint(m.groupdict())
+    # print(number)
+    # pprint(m.groupdict())
 
     if m:
         if m.group('ordinal'):
@@ -160,7 +160,7 @@ def parse_number(number, determine_value=False):
                         value += 1
                     else:
                         value += text_lookup[m.group('units')]
-                print(value, ordinal)
+                # print(value, ordinal)
                 return value, ordinal
         else:
             if m.group('rest'):
