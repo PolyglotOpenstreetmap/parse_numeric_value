@@ -1,6 +1,7 @@
 # coding: utf8
 from __future__ import unicode_literals
 import re
+from pprint import pprint
 
 wrong_ordinals_re = re.compile(r"""(?x)
 .*(?P<wrong>nulste|eende|tweeste|driede|vierste|vijfste|
@@ -32,7 +33,7 @@ hundreds_units_and_tens_thousand_re = re.compile(r"""(?x)
           )
         )
       )?
-      (?P<thousand>duizend)??
+      (?P<thousand>duizend)?
       (?P<ordinal_1_12>(?P<en_ordinal>en)??
                        (?:
                          (?P<ordinal_1>eerste)
@@ -103,6 +104,16 @@ def parse_number(number_text, determine_value=False, strict_AN_spelling=False):
                  a tuple consisting of
                   * True:  This string represents a numeral
                   * False: Can't be a correctly spelled numeral in Standard Dutch"""
+    if ' ' in number_text:
+        value = 0
+        for word in number_text.split(' '):
+            print(word)
+            v = parse_number(word, determine_value=determine_value, strict_AN_spelling=strict_AN_spelling)
+            print(v)
+            if v and v[0]:
+                value += v[0]
+        return value, v[1]
+
     result = None
     if number_text == '':
         result = None, None
@@ -140,6 +151,8 @@ def parse_number(number_text, determine_value=False, strict_AN_spelling=False):
     # And then we can bring out the heavyweight regex
     value = 0
     m = hundreds_units_and_tens_thousand_re.match(number_text)
+    pprint(m.groupdict())
+
     if m:
         if m.group('ordinal'):
             ordinal = True

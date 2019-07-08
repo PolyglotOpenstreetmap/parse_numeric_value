@@ -191,6 +191,7 @@ from parse_numeric_value.lang.nl.parse_to_numeric_value import parse_number
     ('triljoen', (1000000000000000000, False), True), ('triljard', (1000000000000000000000, False), True),
     ('quadriljoen', (1000000000000000000000000, False), True), ('quadriljard', (1000000000000000000000000000, False), True),
     ('driekwart', (0.75, False), True), ('driekwartste', (0.75, True), True),
+    ('negentigduizend achthonderdachtentachtig', (90888, False), True),
 ])
 def test_conversion_to_numeric_values(text, value, match):
     assert parse_number(text, determine_value=True) == value
